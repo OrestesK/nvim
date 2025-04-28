@@ -8,23 +8,22 @@ return {
           suggestion_color = '#ffffff',
           cterm = 244,
         },
-        -- disable_keymaps = true,
-        -- keymaps = {
-        --   accept_suggestion = '<tab>',
-        --   clear_suggestion = '<C-h>',
-        --   accept_word = '<C-;>',
-        -- },
         ignore_filetypes = { 'md', 'txt' },
+        keymaps = {
+          clear_suggestion = '<C-h>',
+          accept_word = '<C-l>',
+          accept_suggestion = '<Tab>',
+        },
       }
-      vim.keymap.set('n', '<leader>tm', function()
+      vim.keymap.set('n', '<leader>ta', function()
         local api = require 'supermaven-nvim.api'
         api.toggle()
         if api.is_running() then
-          require 'notify'('Enabled AI autocompletion', 2)
+          require 'notify'('Enabled AI Autocompletion', 2)
         else
-          require 'notify'('Disabled AI autocompletion', 2)
+          require 'notify'('Disabled AI Autocompletion', 2)
         end
-      end, { desc = 'Toggle Inline AI autocompletion' })
+      end, { desc = '[T]oggle AI [A]utocompletion' })
     end,
   },
 }
