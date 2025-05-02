@@ -8,7 +8,7 @@ return {
           suggestion_color = '#ffffff',
           cterm = 244,
         },
-        ignore_filetypes = { 'md', 'txt' },
+        ignore_filetypes = { 'md', 'txt', 'tex' },
         keymaps = {
           clear_suggestion = '<C-h>',
           accept_word = '<C-l>',
