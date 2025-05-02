@@ -63,6 +63,7 @@ return {
 
   { 'nvim-pack/nvim-spectre' },
 
+  -- Aerial (lsp symbol navigation)
   {
     'stevearc/aerial.nvim',
     opts = {},
@@ -79,8 +80,8 @@ return {
       }
     end,
     keys = {
-      { '<leader>la', '<cmd>AerialToggle!<CR>', desc = 'Aerial' },
-      { '<leader>ls', '<cmd>Telescope aerial<CR>', desc = 'Aerial search' },
+      { '<leader>aa', '<cmd>AerialToggle!<CR>', desc = 'Aerial' },
+      { '<leader>as', '<cmd>Telescope aerial<CR>', desc = 'Aerial search' },
     },
   },
 
@@ -95,12 +96,9 @@ return {
       'LazyGitFilter',
       'LazyGitFilterCurrentFile',
     },
-    -- optional for floating window border decoration
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
-    -- setting the keybinding for LazyGit with 'keys' is recommended in
-    -- order to load the plugin when the command is run for the first time
     keys = {
       { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
