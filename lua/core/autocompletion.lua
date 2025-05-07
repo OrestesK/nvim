@@ -35,6 +35,7 @@ return {
         preset = 'none',
         ['<C-k>'] = { 'select_prev' },
         ['<C-j>'] = { 'select_next' },
+        ['<C-l>'] = { 'select_and_accept' },
         ['<C-space>'] = { 'show', 'show_documentation' },
         ['<C-e>'] = { 'cancel' },
 
