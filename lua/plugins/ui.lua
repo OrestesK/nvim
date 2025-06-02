@@ -32,21 +32,21 @@ return {
   },
 
   -- Cursor animation
-  {
-    'sphamba/smear-cursor.nvim',
-    opts = {
-      smear_insert_mode = false,
-      smear_between_buffers = false,
-      smear_vertically = false,
-      smear_diagonally = false,
-      smear_to_cmd = false,
-
-      stiffness = 0.8,
-      trailing_stiffness = 0.5,
-      distance_stop_animating = 0.5,
-      never_draw_over_target = false,
-    },
-  },
+  -- {
+  --   'sphamba/smear-cursor.nvim',
+  --   opts = {
+  -- smear_insert_mode = false,
+  -- smear_between_buffers = false,
+  -- smear_vertically = false,
+  -- smear_diagonally = false,
+  -- smear_to_cmd = false,
+  --
+  -- stiffness = 0.8,
+  -- trailing_stiffness = 0.5,
+  -- distance_stop_animating = 0.5,
+  -- never_draw_over_target = false,
+  --   },
+  -- },
 
   { 'nvim-pack/nvim-spectre' },
 
