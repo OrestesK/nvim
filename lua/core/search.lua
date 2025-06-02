@@ -12,6 +12,7 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
@@ -24,10 +25,16 @@ return {
             },
           },
         },
+        extensions = {
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown(),
+          },
+        },
       }
 
       -- Telescope Extensions
       pcall(require('telescope').load_extension, 'fzf')
+      pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'yank_history')
       pcall(require('telescope').load_extension, 'lazygit')
       pcall(require('telescope').load_extension, 'aerial')
