@@ -11,7 +11,7 @@ return {
     lazy = false,
     opts = {
       animation = false,
-      auto_hide = true,
+      auto_hide = false,
       clickable = false,
       preset = 'powerline',
     },
