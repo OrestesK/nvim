@@ -49,7 +49,9 @@ vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '▶ ', trail = '~', nbsp = '␣', extends = '❯', precedes = '❮' }
+vim.opt.fillchars = { vert = '│' }
+
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 -- Show which line your cursor is on
@@ -61,6 +63,10 @@ vim.opt.scrolloff = 10
 vim.opt.confirm = true
 -- Don't show welcome message
 vim.opt.shortmess:append 'I'
+
+vim.opt.expandtab = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 
 -- Folds
 vim.opt.foldcolumn = '1'
