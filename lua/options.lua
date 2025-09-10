@@ -1,8 +1,6 @@
--- Set <space> as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 vim.opt.termguicolors = true
 
@@ -66,13 +64,23 @@ vim.opt.shortmess:append 'I'
 
 vim.opt.expandtab = false
 vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.smartcase = true
+vim.opt.smartindent = true
 
+vim.opt.colorcolumn = '120'
 -- Folds
 vim.opt.foldcolumn = '1'
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
+
+vim.opt.cmdheight = 1
+vim.opt.pumheight = 10
+vim.opt.updatetime = 300
+vim.opt.hlsearch = true
+vim.opt.completeopt = { 'menu' }
 
 -- Keymaps
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'Save' })
