@@ -65,20 +65,20 @@ return {
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_text = false,
-        -- virtual_text = {
-        --   source = 'if_many',
-        --   spacing = 2,
-        --   format = function(diagnostic)
-        --     local diagnostic_message = {
-        --       [vim.diagnostic.severity.ERROR] = diagnostic.message,
-        --       [vim.diagnostic.severity.WARN] = diagnostic.message,
-        --       [vim.diagnostic.severity.INFO] = diagnostic.message,
-        --       [vim.diagnostic.severity.HINT] = diagnostic.message,
-        --     }
-        --     return diagnostic_message[diagnostic.severity]
-        --   end,
-        -- },
+        -- virtual_text = false,
+        virtual_text = {
+          source = 'if_many',
+          spacing = 2,
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              -- [vim.diagnostic.severity.WARN] = diagnostic.message,
+              -- [vim.diagnostic.severity.INFO] = diagnostic.message,
+              -- [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+          end,
+        },
       }
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
@@ -104,8 +104,13 @@ return {
       -- Required mason servers
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',
+        'ruff',
+        'prettier',
+        'quick-lint-js',
+        'markdownlint-cli2',
       })
+      vim.list_extend(ensure_installed, { 'basedpyright', 'vtsls', 'lua-language-server' })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -160,14 +165,14 @@ return {
         desc = 'Quickfix List (Trouble)',
       },
     },
-    -- LSP for Neovim config and apis
-    {
-      'folke/lazydev.nvim',
-      ft = 'lua',
-      opts = {
-        library = {
-          { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-        },
+  },
+  -- LSP for Neovim config and apis
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
       },
     },
   },
