@@ -18,7 +18,7 @@ return {
       delay = 200,
       icons = {
         mappings = vim.g.have_nerd_font,
-        keys = {},
+        keys = vim.g.have_nerd_font and {},
       },
       spec = {
         { '<leader>f', group = '[F]ind' },
@@ -32,11 +32,11 @@ return {
 
   require 'core.search',
   require 'core.lsp',
+  require 'core.lint',
   require 'core.autoformat',
   require 'core.autocompletion',
   require 'core.tabs',
   require 'core.tree',
-  require 'core.debug',
   require 'core.navigate',
 
   require 'plugins.basic',

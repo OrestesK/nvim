@@ -18,18 +18,14 @@ return {
   -- HEX colors
   {
     'norcalli/nvim-colorizer.lua',
-    config = function()
-      require('colorizer').setup()
-    end,
+    opts = {},
   },
 
   -- Tailwind colors
   {
     'themaxmarchuk/tailwindcss-colors.nvim',
     lazy = false,
-    config = function()
-      require('tailwindcss-colors').setup {}
-    end,
+    opts = {},
   },
 
   -- Highlight words
@@ -60,6 +56,7 @@ return {
     },
   },
 
+  -- Temporarily highlight word under cursor
   {
     'tzachar/local-highlight.nvim',
     config = function()
@@ -71,51 +68,24 @@ return {
         animate = {
           enabled = false,
         },
-        debounce_timeout = 0,
+        debounce_timeout = 500,
       }
     end,
-  },
-
-  -- Cursor animation
-  {
-    'sphamba/smear-cursor.nvim',
-    opts = {
-      smear_insert_mode = false,
-      smear_between_buffers = false,
-      smear_vertically = false,
-      smear_diagonally = false,
-      smear_to_cmd = false,
-
-      stiffness = 0.8,
-      trailing_stiffness = 0.5,
-      distance_stop_animating = 0.5,
-      never_draw_over_target = false,
-    },
   },
 
   -- Search and Replace
-  { 'nvim-pack/nvim-spectre' },
-
-  -- Aerial (lsp symbol navigation)
   {
-    'stevearc/aerial.nvim',
-    opts = {},
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
-    },
+    'MagicDuck/grug-far.nvim',
+    -- Note (lazy loading): grug-far.lua defers all it's requires so it's lazy by default
+    -- additional lazy config to defer loading is not really needed...
     config = function()
-      require('aerial').setup {
-        on_attach = function(bufnr)
-          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
-          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
-        end,
+      -- optional setup call to override plugin options
+      -- alternatively you can set options with vim.g.grug_far = { ... }
+      require('grug-far').setup {
+        -- options, see Configuration section below
+        -- there are no required options atm
       }
     end,
-    keys = {
-      { '<leader>aa', '<cmd>AerialToggle!<CR>', desc = 'Aerial' },
-      { '<leader>as', '<cmd>Telescope aerial<CR>', desc = 'Aerial search' },
-    },
   },
 
   -- Lazygit

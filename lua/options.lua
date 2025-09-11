@@ -71,7 +71,7 @@ vim.opt.smartindent = true
 
 vim.opt.colorcolumn = '120'
 -- Folds
-vim.opt.foldcolumn = '1'
+-- vim.opt.foldcolumn = '1'
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
@@ -88,11 +88,10 @@ vim.keymap.set('n', '<leader>q', '<cmd>q<CR>', { desc = 'Exit' })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlights' })
 vim.keymap.set('n', 'o', 'o<Left><Right>', { noremap = true, silent = true, desc = 'Keep indentation after o' })
 
-vim.keymap.set('n', '<leader>sr', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Search And Replace The Word Under The Cursor' })
-
--- Diagnostic keymaps
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
--- vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
+vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
+vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
+vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 
 -- Autocommands
 vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true })

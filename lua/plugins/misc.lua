@@ -7,11 +7,11 @@ return {
       vim.g.vimtex_mappings_enabled = 0
     end,
   },
-  -- {
-  --   'ray-x/lsp_signature.nvim',
-  --   event = 'BufRead',
-  --   config = function()
-  --     require('lsp_signature').setup()
-  --   end,
-  -- },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+  },
 }
