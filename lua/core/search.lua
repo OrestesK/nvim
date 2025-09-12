@@ -1,68 +1,176 @@
 -- Search
 return {
   {
-    'nvim-telescope/telescope.nvim',
-    event = 'VimEnter',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
-      },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-    },
+    'ibhagwan/fzf-lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      local actions = require 'telescope.actions'
-      require('telescope').setup {
-        defaults = {
-          mappings = {
-            n = {
-              ['q'] = actions.close,
-            },
+      local fzf = require 'fzf-lua'
+      local actions = fzf.actions
+
+      fzf.register_ui_select()
+
+      fzf.setup {
+        fzf_colors = true,
+        winopts = {
+          winblend = 100,
+          backdrop = 100,
+          width = 0.8,
+          height = 0.6,
+          row = 0.5,
+          col = 0.5,
+          border = 'rounded',
+          treesitter = {
+            enabled = true,
+          },
+          preview = {
+            border = 'rounded',
+            layout = 'horizontal',
+            scrollbar = false,
+            winopts = { number = true, cursorline = true },
           },
         },
-        extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
+        defaults = { header = false },
+        oldfiles = {
+          include_current_session = true,
+          cwd_only = true,
+          stat_file = true,
+        },
+        previewers = {
+          builtin = {
+            syntax_limit_b = 1024 * 100, -- 100KB
+          },
+        },
+        files = {
+          hidden = false,
+          cwd_prompt = false,
+          actions = {
+            ['alt-i'] = { actions.toggle_ignore },
+            ['alt-h'] = { actions.toggle_hidden },
+            ['default'] = actions.file_edit,
+            ['ctrl-s'] = actions.file_split,
+            ['ctrl-v'] = actions.file_vsplit,
+          },
+        },
+        grep = {
+          rg_glob = true,
+          glob_flag = '--iglob',
+          glob_separator = '%s%-%-',
+          actions = {
+            ['alt-i'] = { actions.toggle_ignore },
+            ['alt-h'] = { actions.toggle_hidden },
+            ['ctrl-g'] = { actions.grep_lgrep },
+            ['default'] = actions.file_edit,
+            ['ctrl-s'] = actions.file_split,
+            ['ctrl-v'] = actions.file_vsplit,
+          },
+        },
+        lsp = {
+          jump1 = true,
+          symbols = {
+            symbol_hl = function(s)
+              return 'TroubleIcon' .. s
+            end,
+            symbol_fmt = function(s)
+              return s:lower() .. '\t'
+            end,
+            child_prefix = false,
+          },
+          code_actions = {
+            previewer = 'codeaction_native',
           },
         },
       }
-
-      -- Telescope Extensions
-      pcall(require('telescope').load_extension, 'fzf')
-      pcall(require('telescope').load_extension, 'ui-select')
-      pcall(require('telescope').load_extension, 'yank_history')
-      pcall(require('telescope').load_extension, 'lazygit')
-
-      local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>fg', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
-      vim.keymap.set('n', '<leader>fo', function()
-        builtin.live_grep {
-          grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
-        }
-      end, { desc = '[S]earch in [O]pen Files' })
-
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>/', function()
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = true,
-        })
-      end, { desc = '[/] Fuzzily search in current buffer' })
     end,
+    keys = {
+      {
+        '<leader>fr',
+        function()
+          require('fzf-lua').resume()
+        end,
+        desc = '[R]esume',
+      },
+      {
+        '<leader>ff',
+        function()
+          require('fzf-lua').files()
+        end,
+        desc = '[F]iles',
+      },
+      {
+        '<leader>fw',
+        function()
+          require('fzf-lua').live_grep()
+        end,
+        desc = '[Word]',
+      },
+      {
+        '<leader>fW',
+        function()
+          require('fzf-lua').grep_project()
+        end,
+        desc = 'Fuzzy',
+      },
+      {
+        '<leader>fg',
+        function()
+          require('fzf-lua').grep()
+        end,
+        desc = '[G]rep : Fuzzy',
+      },
+      {
+        '<leader>fb',
+        function()
+          require('fzf-lua').buffers()
+        end,
+        desc = '[B]uffers',
+      },
+      {
+        '<leader>fo',
+        function()
+          require('fzf-lua').oldfiles()
+        end,
+        desc = '[O]pened Recently',
+      },
+      {
+        '<leader>ft',
+        function()
+          require('fzf-lua').treesitter()
+        end,
+        desc = '[T]reesitter',
+      },
+      {
+        '<leader>fG',
+        function()
+          require('fzf-lua').git_stash()
+        end,
+        desc = '[T]reesitter',
+      },
+      {
+        '<leader>fh',
+        function()
+          require('fzf-lua').builtin()
+        end,
+        desc = '[H]elp',
+      },
+      {
+        '<leader>fs',
+        function()
+          require('fzf-lua').lsp_document_symbols()
+        end,
+        desc = 'Document [S]ymbols',
+      },
+      {
+        '<leader>fS',
+        function()
+          vim.ui.input({ prompt = 'search symbol: ' }, function(sym)
+            if not sym or sym == '' then
+              return
+            end
+            require('fzf-lua').lsp_workspace_symbols { lsp_query = sym }
+          end)
+        end,
+        desc = 'Workspace [S]ymbols',
+      },
+    },
   },
 }

@@ -22,7 +22,11 @@ return {
     event = 'InsertEnter',
     opts = {},
   },
-
+  -- Marks
+  {
+    'kshenoy/vim-signature',
+    event = 'VeryLazy',
+  },
   -- Better yanking
   {
     'gbprod/yanky.nvim',
@@ -37,12 +41,10 @@ return {
       },
     },
     keys = {
-      { '<leader>c', mode = { 'n' }, ':Telescope yank_history<CR>', desc = 'Clipboard', silent = true },
+      { '<leader>c', mode = { 'n' }, ':YankyRingHistory<CR>', desc = 'Clipboard', silent = true },
       { 'y', mode = { 'n', 'x' }, '<Plug>(YankyYank)', desc = 'Yanky Yank', silent = true },
       { 'p', mode = { 'n', 'x' }, '<Plug>(YankyPutAfter)', desc = 'Yanky Put After', silent = true },
       { 'P', mode = { 'n', 'x' }, '<Plug>(YankyPutBefore)', desc = 'Yanky Put Before', silent = true },
-      { '=p', mode = { 'n' }, '<Plug>(YankyPutBeforeFilter)', desc = 'Yanky Put Before Filter', silent = true },
-      { '=P', mode = { 'n' }, '<Plug>(YankyPutAfterFilter)', desc = 'Yanky Put After Filter', silent = true },
       { '<c-p>', mode = { 'n' }, '<Plug>(YankyPreviousEntry)', desc = 'Yanky Previous Entry', silent = true },
       { '<c-n>', mode = { 'n' }, '<Plug>(YankyNextEntry)', desc = 'Yanky Next Entry', silent = true },
     },

@@ -81,17 +81,13 @@ vim.opt.pumheight = 10
 vim.opt.updatetime = 300
 vim.opt.hlsearch = true
 vim.opt.completeopt = { 'menu' }
+vim.opt.bufhidden = 'unload'
 
 -- Keymaps
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'Save' })
 vim.keymap.set('n', '<leader>q', '<cmd>q<CR>', { desc = 'Exit' })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlights' })
 vim.keymap.set('n', 'o', 'o<Left><Right>', { noremap = true, silent = true, desc = 'Keep indentation after o' })
-
-vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
-vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
-vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
-vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 
 -- Autocommands
 vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true })
