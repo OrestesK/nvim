@@ -1,15 +1,5 @@
 -- Basic functionality
 return {
-  -- Keybind to comment
-  {
-    'numToStr/Comment.nvim',
-    opts = {
-      mappings = {
-        basic = false,
-        extra = true,
-      },
-    },
-  },
   -- Highlight keywords in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
