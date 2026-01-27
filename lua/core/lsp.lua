@@ -80,11 +80,7 @@ return {
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local servers = {
-        -- basedpyright = {},
         lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
@@ -102,7 +98,6 @@ return {
         'ruff',
         'prettier',
         'quick-lint-js',
-        'markdownlint-cli2',
       })
       vim.list_extend(ensure_installed, { 'basedpyright', 'vtsls', 'lua-language-server' })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
